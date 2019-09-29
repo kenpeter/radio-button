@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import RadioCustom from './RadioCustom';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <div className="App">
+
+    <RadioCustom
+      value={1}
+      name="r"
+      label="r1 lkdfjldsjf"
+      onChange={() => {
+        
+      }}
+      checked={
+        true
+      }
+    />
+
+    <RadioCustom
+      value={2}
+      name="r"
+      label="r2 dfsdf"
+      onChange={() => {
+        
+      }}
+      checked={
+        false
+      }
+    />
+  </div>;
 }
 
 export default App;
