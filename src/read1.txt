@@ -1,0 +1,213 @@
+// react
+class ToggleGroup extends React.Component {
+  // build
+  constructor(props) {
+    // super
+    super(props);
+
+    // state
+    this.state = { value: this.props.value };
+  }
+     
+  // on change
+  onChange(e) {
+    // event value
+    let value = e.target.value;
+
+    // set state, then call back    
+    this.setState({ value: value }, () => typeof this.props.onUpdate === "function" ? this.props.onUpdate(value) : null);
+  }
+
+  // getter, get state value
+  get value() {
+    return this.state.value;
+  }
+
+  // display
+  render() {
+    return (
+      // pass in all props
+      <div {...this.props}>
+        // loop items
+        {this.props.items.map(item => {
+          // return
+          return (
+            // label has key
+            <label key={item.value}>
+              // input
+              <input
+                // radio
+                type="radio"
+                // check
+                checked={this.state.value === item.value}
+                // disable
+                disabled={item.disabled}
+                // value
+                value={item.value}
+                // name
+                name={this.props.name}
+                // on change
+                onChange={this.onChange.bind(this)}
+              />
+              // the text
+              <span>{item.label}</span>
+            // close label
+            </label>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+// prop
+ToggleGroup.propTypes = {
+  // single name
+  name: React.PropTypes.string.isRequired,
+  // single val
+  value: React.PropTypes.string.isRequired,
+  // items
+  items: React.PropTypes.arrayOf(React.PropTypes.shape({
+    // item has val
+    value: React.PropTypes.string.isRequired,
+    // item has label
+    label: React.PropTypes.string.isRequired,
+    // item has checked
+    checked: React.PropTypes.bool
+  })).isRequired, // required
+  // on update
+  onUpdate: React.PropTypes.func
+};
+
+// items, val, label, disabled
+let items = [
+     { value: "a", label: "Option 1" },
+     { value: "b", label: "Option 2" },
+     { value: "c", label: "Option 3" },
+     { value: "d", label: "Option 4", disabled: true },
+     { value: "e", label: "Option 5" }
+]
+
+// on change log === on update
+function onChange(value) {
+    console.log(value); 
+}
+
+React.render(<ToggleGroup items={items} name="opt-group" value="c" className="radio-group" onUpdate={onChange}  />, document.body);
+
+
+
+
+// pre-defined color
+$accent-color: #e48;
+
+// body
+body {
+  // font
+  font: 14px / 1.5 "Open Sans", "Myriad Pro", Helvetica, Tahoma, "Nimbus Sans", Arial, sans-serif;
+  // padding
+  padding: 1em;
+}
+
+// group
+.radio-group {
+  // padding
+  padding: 1em;
+
+  // label 
+  label {
+    // block
+    display: block;
+    // label padding
+    padding: .5em;
+    // cursor
+    cursor: pointer;
+
+    // before span we have      
+    > span:before {
+      // no content
+      content: "";
+      // display inline
+      display: inline-block;
+      // vertical lower
+      vertical-align: -.25em;
+      // label height
+      height: 1em;
+      // label width
+      width: 1em;
+      // label radius half half
+      border-radius: 50%;
+      // bigger border
+      border: 2px solid rgba(0, 0, 0, 0.5);
+      // margin
+      margin-right: .5em;
+    }
+
+    // input checked and before span  
+    > input:checked + span:before {
+      // border color
+      border-color: $accent-color;
+      // bg img cycle
+      background-image: radial-gradient(
+                          circle closest-side,
+                          $accent-color 0%,
+                          $accent-color 50%,
+                          transparent 50%,
+                          transparent 100%);
+    }
+     
+    // disable
+    > input:disabled + span { opacity: .5; }
+
+    // disable    
+    > input:disabled:checked + span:before {
+          background-image: radial-gradient(
+                              circle closest-side,
+                              rgba(0, 0, 0, 0.5) 0%,
+                              rgba(0, 0, 0, 0.5) 50%,
+                              transparent 50%,
+                              transparent 100%);
+    }
+
+    // input no  
+    > input { display: none; }
+  }
+}
+
+.toggle-group {
+     padding: 1em;
+     
+     &:before, &:after {
+          content: "";
+          display: table;
+     }
+     
+     &:after { clear: both; }
+     
+     label {
+          float: left;
+          cursor: pointer;
+          
+          > span {
+               padding: .5em 1em;
+               background-color: #fff;
+               box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.12), 0 1.5px 6px rgba(0, 0, 0, 0.06);
+               
+               &:focus, &:hover { color: $accent-color; }
+          }
+               
+          &:not(:last-of-type) > span { border-right: 0; }
+               
+          &:first-of-type > span { border-radius: 2px 0 0 2px; }
+               
+          &:last-of-type > span { border-radius: 0 2px 2px 0; }
+          
+          > input:checked + span {
+               background-color: $accent-color;
+               color: white;
+               font-weight: bold;
+          }
+          
+          > input { display: none; }
+     }
+}
