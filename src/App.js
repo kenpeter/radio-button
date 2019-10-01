@@ -1,5 +1,11 @@
 import React, {useState} from "react";
 import RadioButton from './RadioButton';
+import styled from 'styled-components';
+
+const TestDiv = styled.div`
+  border: ${props =>
+    props.disableBorder === true ? '0' : `solid 1px ${props => props.ownColor}`};
+`;
 
 // https://codepen.io/satya164/pen/qdgYaO
 function App() {
@@ -9,6 +15,8 @@ function App() {
   console.log('value', value);
 
   return <div className="App">
+    <TestDiv disableBorder={false} ownColor={'red'}>bla</TestDiv>
+
     <RadioButton 
       checked={value === 'test1' ? true : false}
       onChange={() => {setValue('test1')}}
