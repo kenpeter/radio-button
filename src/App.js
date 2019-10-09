@@ -5,7 +5,12 @@ import createAutoCorrectedDatePipe
 import styled from 'styled-components';
 
 const MyStyledInput = styled.input`
-  background: papayawhip;
+  padding: 10px;
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 function App () {
@@ -14,6 +19,7 @@ function App () {
     <div className="App">
 
       <MaskedInput
+        placeholderChar={'\u2000'}
         mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
         placeholder={'DD/MM/YYYY'}
         pipe={autoCorrectedDatePipe}
