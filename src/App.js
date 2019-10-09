@@ -19,7 +19,7 @@ function App () {
         pipe={autoCorrectedDatePipe}
         guide={true}
         keepCharPositions={true}
-        render={(ref, props) => <MyStyledInput innerRef={ref} {...props} />}
+        render={(ref, props) => <MyStyledInput ref={ref} {...props} />}
       />
     </div>
   );
